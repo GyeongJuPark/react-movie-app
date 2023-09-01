@@ -21,4 +21,4 @@ class HomeContainer extends Component<{}, HomeContainerState> {
         return <HomePresenter {...this.state} />
     }  
 }
-export default HomePresenter;
+export default HomeContainer;
