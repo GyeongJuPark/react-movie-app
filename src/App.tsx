@@ -23,7 +23,7 @@ const App : FC = () => {
   return (
 
     <RecoilRoot>
-      <QueryClientProvider client = {QueryClient}>
+      <QueryClientProvider client = {queryClient}>
         <BrowserRouter>
           <Router/>
         </BrowserRouter>
