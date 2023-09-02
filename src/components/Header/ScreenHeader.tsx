@@ -16,8 +16,8 @@ const ScreenHeader : FC<ScreenHeaderProps> =({
                 <Link to="/" className={styles.scLink}></Link>
             </div>
             <li className={`${styles.li} ${pathname === '/' && styles.current}`}>
-                <Link to="/" className={styles.scLink}>
-                홈
+                <Link to="/" className={`${styles.scLink}`}>
+                    홈
                 </Link>
             </li>
             <li className={`${styles.li} ${pathname.includes('/movie') && styles.current}`}>
