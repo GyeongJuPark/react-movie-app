@@ -3,16 +3,18 @@
 import React from 'react';
 import ProTypes from 'prop-types';
 import Loader from '../../components/Loader/Loader';
-
+import styles from './HomePresenter.module.css';
 
 interface HomeProps {
     movieDetail : any;
     loading : boolean;
+    error: any;
 }
 
 const HomePresenter : React.FC<HomeProps> = ({
 movieDetail,
-loading
+loading,
+error
 }) => {
     return loading? (
         <Loader></Loader>
