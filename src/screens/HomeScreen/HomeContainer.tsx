@@ -1,24 +1,54 @@
-// 데이터를 불러오거나 로직을 담당
-
-import { Component } from "react";
-import HomePresenter from "./HomePresenter";
+import React, { Component } from 'react';
+import { homeApi } from '../../api/movie';
+import HomePresenter from './HomePresenter';
 
 interface HomeContainerState {
-    movieDetail : any;
-    loading : boolean;
+  nowPlaying: any[] | null;
+  movieDetail: any | null;
+  error: string | null;
+  loading: boolean;
 }
 
 class HomeContainer extends Component<{}, HomeContainerState> {
-    
-    constructor(props : {}) {
-        super(props);
-        this.state = {
-            movieDetail : null,
-            loading : true,
-        };
+  constructor(props: {}) {
+    super(props);
+    this.state = {
+      nowPlaying: null,
+      movieDetail: null,
+      error: null,
+      loading: true,
+    };
+  }
+
+  async componentDidMount() {
+    try {
+      const { data } = await homeApi.nowPlaying();
+      const movieArray = data.results.map((result: any) => result.id);
+      const movieId = movieArray[Math.floor(Math.random() * movieArray.length)];
+
+
+      try {
+        
+        const { data: movieDetail } = await homeApi.movieDetail(movieId);
+        if (movieDetail.videos.results.length === 0) {
+          const { data: defaultMovieDetail } = await homeApi.movieDetail(497698);
+          this.setState({ movieDetail: defaultMovieDetail });
+        } else {
+          this.setState({ movieDetail });
+        }
+      } catch (error) {
+        this.setState({ error: "Can't find Home Video." });
+      }
+    } catch (error) {
+      this.setState({ error: "Can't fetch Now Playing movies." });
+    } finally {
+      this.setState({ loading: false });
     }
-    render(){
-        return <HomePresenter {...this.state} />
-    }  
+  }
+
+  render() {
+    return <HomePresenter {...this.state} />;
+  }
 }
+
 export default HomeContainer;
