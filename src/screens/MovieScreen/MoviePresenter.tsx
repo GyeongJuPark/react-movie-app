@@ -9,7 +9,6 @@ import React, {useState, useEffect} from "react";
 import useInfiniteScroll from "../../utils/usetInfiniteScroll";
 import { moviesApi } from "../../api/movie";
 import uniqBy from "lodash/uniqBy";
-import path from "path";
 
 interface MoviePresenterProps {
     nowPlaying: any[] | null;
@@ -90,9 +89,9 @@ const MoviePresenter : React.FC<MoviePresenterProps>=({
       }
     }
     
-    useEffect(()=>{
+    useEffect(() => {
       getInfiniteApi();
-    },[page]);
+    }, [page]);
 
     return loading ? (
         <Loader/>
